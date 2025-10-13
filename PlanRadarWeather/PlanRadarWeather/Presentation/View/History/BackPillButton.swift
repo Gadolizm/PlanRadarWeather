@@ -46,10 +46,3 @@ struct BackPillButton: View {
         .accessibilityLabel("Back")
     }
 }
-
-// MARK: - Back pill preview
-#Preview("BackPillButton") {
-    BackPillButton(action: {})
-        .padding()
-        .background(Color(.systemBackground))
-}

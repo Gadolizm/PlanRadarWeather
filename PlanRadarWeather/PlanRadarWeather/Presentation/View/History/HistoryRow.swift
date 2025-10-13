@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct HistoryRow: View {
     let item: WeatherSnapshot
 

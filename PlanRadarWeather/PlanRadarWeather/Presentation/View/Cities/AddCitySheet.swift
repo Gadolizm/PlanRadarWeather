@@ -25,6 +25,7 @@ struct AddCitySheet: View {
                     TextField("Search", text: $text)
                         .textFieldStyle(.plain)
                         .padding(.vertical, 10)
+                        .accessibilityIdentifier(A11yID.addTextField)
                 }
                 .padding(.horizontal, 12)
                 .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))

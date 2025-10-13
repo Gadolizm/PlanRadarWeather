@@ -5,10 +5,6 @@
 //  Created by Haitham Gado on 11/10/2025.
 //
 
-
-import SwiftUI
-
-
 import SwiftUI
 
 struct CitiesView: View {
@@ -36,6 +32,7 @@ struct CitiesView: View {
                             .foregroundStyle(Color("PrimaryText"))
                             .padding(.top, 24)
                             .padding(.bottom, 8)
+                            .accessibilityIdentifier(A11yID.citiesTitle)
 
                         VStack(spacing: 0) {
                             ForEach(rows, id: \.id) { city in
@@ -54,7 +51,8 @@ struct CitiesView: View {
                 AddPillButton { showAdd = true }
                     .padding(.top, 24)
                     .padding(.trailing, 16)
-                    .offset(x: 16, y: -35) 
+                    .offset(x: 16, y: -35)
+                    .accessibilityIdentifier(A11yID.addPill)
             }
             .navigationBarTitleDisplayMode(.inline)
             // Destinations
@@ -75,21 +73,3 @@ struct CitiesView: View {
         }
     }
 }
-
-#if DEBUG
-// Simple wrapper so the preview always shows rows even if your DB is empty.
-private struct CitiesViewPreviewWrapper: View {
-    var body: some View { CitiesView() }
-}
-
-#Preview("Cities — iPhone 15 Pro (Light)") {
-    CitiesViewPreviewWrapper()
-        .preferredColorScheme(.light)
-}
-
-#Preview("Cities — iPhone 15 Pro (Dark)") {
-    CitiesViewPreviewWrapper()
-        .preferredColorScheme(.dark)
-}
-
-#endif

@@ -8,7 +8,6 @@
 import SwiftUI
 
 
-
 struct ModalClosePill: View {
     var action: () -> Void
     var width: CGFloat = 124

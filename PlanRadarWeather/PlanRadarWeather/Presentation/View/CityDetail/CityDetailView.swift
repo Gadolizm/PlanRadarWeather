@@ -52,11 +52,14 @@ struct CityDetailView: View {
                 .foregroundStyle(Color("PrimaryText").opacity(0.75))
                 .padding(.top, 18)
                 .frame(maxWidth: .infinity)
+                .accessibilityIdentifier(A11yID.detailsCard)
+
         }
 
         // Top-left close pill
         .overlay(alignment: .topLeading) {
             ModalClosePill(action: { dismiss() }, width: 124)
+                .accessibilityIdentifier(A11yID.modalClose)
                 .padding(.leading, 2)
 
                 .offset(x: -15, y: -16)       
@@ -120,14 +123,3 @@ struct CityDetailView: View {
         return df.string(from: date)
     }
 }
-
-#if DEBUG
-#Preview("Detail • Light") {
-    CityDetailView(city: .init(name: "London, UK"))
-        .preferredColorScheme(.light)
-}
-#Preview("Detail • Dark") {
-    CityDetailView(city: .init(name: "London, UK"))
-        .preferredColorScheme(.dark)
-}
-#endif

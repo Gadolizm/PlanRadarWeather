@@ -8,8 +8,6 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct CityRow: View {
     let title: String
     @Environment(\.colorScheme) private var scheme
@@ -24,6 +22,7 @@ struct CityRow: View {
                 Text(title.uppercased())
                     .font(.system(size: 18, weight: .heavy, design: .rounded))
                     .foregroundStyle(Color("PrimaryText"))
+                    .accessibilityIdentifier(A11yID.cityRow(title))
                 Spacer()
                 Image(systemName: "chevron.right")
                     .font(.system(size: 18, weight: .bold))

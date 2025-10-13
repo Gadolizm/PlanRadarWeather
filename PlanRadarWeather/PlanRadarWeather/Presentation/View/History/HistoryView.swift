@@ -24,7 +24,8 @@ struct HistoryView: View {
                 // Top bar: left pill + centered two-line title + spacer to balance
                 HStack(alignment: .center, spacing: 3) {
                     BackPillButton(action: { dismiss() }, width: 120)
-                        .offset(x: -8, y: 22) 
+                        .offset(x: -8, y: 22)
+                        .accessibilityIdentifier(A11yID.historyTitle)
                     VStack(spacing: 10) {
                         Text(vm.city.name.uppercased())
                         Text("HISTORICAL")
@@ -33,6 +34,7 @@ struct HistoryView: View {
                     .kerning(2.0)
                     .foregroundStyle(Color("PrimaryText").opacity(0.75))
                     .multilineTextAlignment(.center)
+                    .accessibilityIdentifier(A11yID.historyTitle)
                     Spacer(minLength: 90) // balance the pill width on the right
                 }
                 .padding(.top, 8)
@@ -54,33 +56,3 @@ struct HistoryView: View {
         .navigationBarHidden(true)
     }
 }
-
-#if DEBUG
-// MARK: - Sample data for previews
-private func sampleHistory() -> [WeatherSnapshot] {
-    [
-        WeatherSnapshot(requestedAt: Date().addingTimeInterval(-60*60*24*0),
-                        summary: "Cloudy", tempC: 14, humidity: 45, windSpeed: 5.5, iconID: "03d"),
-        WeatherSnapshot(requestedAt: Date().addingTimeInterval(-60*60*24*1),
-                        summary: "Rainy",  tempC: 9,  humidity: 72, windSpeed: 7.1, iconID: "10d"),
-        WeatherSnapshot(requestedAt: Date().addingTimeInterval(-60*60*24*2),
-                        summary: "Sunny",  tempC: 22, humidity: 30, windSpeed: 3.3, iconID: "01d")
-    ]
-}
-
-
-
-
-// MARK: - Screen preview (inject mocked VM)
-#Preview("HistoryView • Light") {
-    let city = CityEntity(name: "London, UK")
-    HistoryView(city: city)
-        .preferredColorScheme(.light)
-}
-#Preview("HistoryView — iPhone 15 Pro (Dark)"){
-    let city = CityEntity(name: "London, UK")
-    HistoryView(city: city)
-        .preferredColorScheme(.dark)
-}
-#endif
-
