@@ -1,207 +1,177 @@
 # PlanRadarWeather
-📱 PlanRadar iOS Assessment – Weather Tracker  A small, cleanly architected SwiftUI + Core Data app that fetches live weather data from the OpenWeather API using an Objective-C network layer (as required by the task specification).
 
-Dependency Rule: Views → ViewModels → UseCases → Repository → (Remote | Local).
-Presentation never touches Core Data or Obj-C directly.
+_A tiny, production-style weather app built for the **PlanRadar iOS Assessment**._
 
-PlanRadar Weather — iOS Assessment
+- **Tech**: SwiftUI · MVVM (Clean-inspired) · Core Data · URLSession · **Objective-C** client (as required)
+- **Data**: OpenWeather (current weather)
+- **Dependency Rule**: `Views → ViewModels → UseCases → Repository → (Remote | Local)`  
+  _Presentation never touches Core Data or Obj-C directly._
 
-A tiny, production-style weather app built with SwiftUI + MVVM (Clean-inspired).
-It fetches current weather from OpenWeather, persists history with Core Data, and (optionally) demonstrates a minimal Objective-C networking client bridged into Swift.
+---
 
-⸻
+## ✨ Highlights
 
-Highlights
-    •    Architecture: MVVM + Use-Cases + Repository (domain/data split), Obj-C network client wrapped by a Swift façade.
-    •    UI/UX: Spec-driven layout (city list, details card, history modal), light/dark assets, custom pill buttons, accessibility identifiers for UI tests.
-    •    Persistence: Core Data (Cities, WeatherInfo), mapping to pure domain models.
-    •    Error Handling: Precise, user-presentable AppError (transport, HTTP semantics, content-type, rate-limits).
-    •    Testing: Pure Swift unit tests (no Core Data or Obj-C needed) + UI tests with stable accessibility IDs.
+- **Architecture**: MVVM + Use-Cases + Repository (domain/data split). Obj-C client wrapped by a Swift façade.
+- **UI/UX**: Spec-driven screens (Cities list, Details card, History modal). Light/Dark, custom pill buttons, semantic colors.
+- **Persistence**: Core Data entities (`City`, `WeatherInfo`) mapped to pure domain models.
+- **Errors**: Rich `AppError` (transport, HTTP semantics, content-type, rate limit with `Retry-After`).
+- **Testing**: Pure Swift **unit tests** (no Core Data/Obj-C) + **UI tests** via stable `A11yID` identifiers.
 
-⸻
+---
 
-Table of Contents
-    •    Architecture
-    •    Project Structure
-    •    Setup
-    •    Running
-    •    Testing
-    •    Design & Accessibility
-    •    Error Handling
-    •    Troubleshooting
-    •    Tradeoffs & Future Work
-    •    Grading Rubric Map
-
-⸻
-
-Architecture
-
+## 🧱 Architecture
 Presentation (SwiftUI)
-  ├─ ViewModels (MVVM, @MainActor)
-  │    ├─ CitiesViewModel
-  │    └─ CityDetailViewModel
-  ├─ Views (Cities, Details, History)
-  └─ A11yID.swift (stable IDs for UI tests)
+├─ ViewModels (@MainActor)
+│    ├─ CitiesViewModel
+│    └─ CityDetailViewModel
+├─ Views (Cities, Details, History)
+└─ Support (A11yID, spec colors, modifiers)
 
-Domain (Pure Swift, no frameworks)
-  ├─ Entities (CityEntity, WeatherSnapshot)
-  ├─ UseCases (AddOrGetCity, ListCities, DeleteCities, FetchLatestWeather, GetCityHistory)
-  └─ Repository Protocol (WeatherRepository)
+## Domain (pure Swift)
+├─ Entities (CityEntity, WeatherSnapshot)
+├─ UseCases (AddOrGetCity, ListCities, DeleteCities, FetchLatestWeather, GetCityHistory)
+└─ Repository Protocol (WeatherRepository)
 
-Data
-  ├─ Repository Impl (WeatherRepositoryImpl)  ← bridges Remote + Local
-  ├─ Remote
-  │    ├─ (Option A) Objective-C WeatherAPIClient + Swift façade (WeatherNetworking)
-  │    └─ (Option B) Pure-Swift URLSession client (drop-in)
-  └─ Local
-       ├─ Core Data Stack (PersistenceController)
-       └─ Mappings (CoreData <-> Domain, API <-> Domain)
-       
-⸻
+## Data
+├─ Repository Impl (WeatherRepositoryImpl)  ← bridges Remote + Local
+├─ Remote
+│    ├─ (A) Objective-C WeatherAPIClient + Swift façade (WeatherNetworking)
+│    └─ (B) Pure-Swift URLSession client (drop-in)
+└─ Local
+├─ Core Data Stack (PersistenceController)
+└─ Mappings (CoreData ↔︎ Domain, API ↔︎ Domain)
 
-Project Structure
-
+## 🗂 Project Structure
 PlanRadarWeather/
 ├─ App/
 │  ├─ PlanRadarWeatherApp.swift
-│  └─ AppDI.swift (lazy DI providers)
+│  └─ AppDI.swift                (lazy DI providers)
 ├─ Presentation/
-│  ├─ Views/ (CitiesView, CityDetailView, HistoryView, components)
-│  ├─ ViewModels/ (CitiesViewModel, CityDetailViewModel)
-│  └─ Support/ (A11yID.swift, Spec colors, modifiers)
+│  ├─ Views/                     (CitiesView, CityDetailView, HistoryView, components)
+│  ├─ ViewModels/                (CitiesViewModel, CityDetailViewModel)
+│  └─ Support/                   (A11yID.swift, colors, modifiers)
 ├─ Domain/
-│  ├─ Entities/ (CityEntity.swift, WeatherSnapshot.swift)
-│  └─ UseCases/ (AddOrGetCity.swift, etc.)
+│  ├─ Entities/                  (CityEntity.swift, WeatherSnapshot.swift)
+│  └─ UseCases/                  (AddOrGetCity.swift, etc.)
 ├─ Data/
 │  ├─ Remote/
-│  │  ├─ WeatherAPIClient.h/.m (Obj-C)  ← optional
-│  │  └─ WeatherNetworking.swift (Swift façade or pure URLSession)
+│  │  ├─ WeatherAPIClient.h/.m   (Obj-C)  ← optional but included
+│  │  └─ WeatherNetworking.swift
 │  ├─ Local/
 │  │  ├─ PersistenceController.swift
-│  │  └─ Mappings/ (CoreDataToDomain.swift, APIToDomain.swift)
-│  └─ Repository/ (WeatherRepository.swift, WeatherRepositoryImpl.swift)
+│  │  └─ Mappings/               (CoreDataToDomain.swift, APIToDomain.swift)
+│  └─ Repository/                (WeatherRepository.swift, WeatherRepositoryImpl.swift)
 ├─ Resources/
-│  └─ Assets.xcassets (colors, symbols, app icon)
-└─ PlanRadarWeatherTests/ & PlanRadarWeatherUITests/
-   ├─ ViewModel tests with in-memory mocks (no Core Data)
-   └─ UI tests (XCUITest) using A11yID
-   
-   
-Setup
-
-1) API Key
-
-Register at https://openweathermap.org and create an API key.
-Add it to Info.plist as:
+│  └─ Assets.xcassets            (colors, symbols, app icon)
+└─ Tests/
+├─ PlanRadarWeatherTests/     (ViewModel tests with in-memory mocks)
+└─ PlanRadarWeatherUITests/   (XCUITests using A11yID)
 
 
+
+
+## ⚙️ Setup
+
+### 1) OpenWeather API key
+Create a key at https://openweathermap.org and add to **Info.plist**:
+
+```xml
 <key>OPENWEATHER_API_KEY</key>
 <string>YOUR_API_KEY_HERE</string>
 
-2) Objective-C Networking (optional but included)
+### 2) Objective-C networking (spec requirement, optional at runtime)
+    •    WeatherAPIClient (Obj-C) builds the URL and calls NSURLSession.
+    •    WeatherNetworking (Swift) wraps it and normalizes HTTP/errors.
 
-If you want to demonstrate Obj-C:
-    •    Ensure the bridging header path is configured (or remove Obj-C from Compile Sources if testing Swift-only).
-    •    WeatherAPIClient builds the URL and calls NSURLSession.
-    •    WeatherNetworking (Swift) wraps that and normalizes HTTP/errors.
+Prefer Swift-only? Swap WeatherNetworking.fetchRaw to a URLSession implementation (drop-in). No other code changes.
 
-Prefer Swift-only? Switch WeatherNetworking.fetchRaw to the URLSession implementation (drop-in). No other code changes needed.
+### 3) Core Data model
+    •    Model name: PlanRadarWeather (City, WeatherInfo).
+    •    Important: Use either Core Data Class Definition or Manual/None (generated files) — not both.
+If keeping generated classes: set entities to Class Definition and delete manual files.
+    •    Ensure the data model is not included in the tests target.
+## ▶️ Running
+    1.    Open the project in Xcode.
+    2.    Select the PlanRadarWeather scheme.
+    3.    Run on Simulator or device.
 
-3) Core Data
-    •    Model name: PlanRadarWeather (entities: City, WeatherInfo).
-    •    Important: Use either Core Data codegen or manual class files—not both.
-If you keep the generated classes: set entities to Class Definition and remove manual files.
-
-⸻
-
-Running
-    •    Open the workspace in Xcode.
-    •    Select PlanRadarWeather scheme.
-    •    Run on Simulator or device.
-
-Note on configuration: AppDI is lazy, so nothing heavy spins up until the UI needs it.
+DI is lazy: heavy objects are created only when the UI needs them.
 
 ⸻
 
-Testing
+## ✅ Testing
 
-Unit Tests (fast, no Core Data/Obj-C)
-    •    Tests isolate ViewModels with closure-based mocks:
-    •    No persistence or networking required.
+Unit tests (fast, pure Swift)
+    •    ViewModels are tested with closure-based mocks (no Core Data, no Obj-C).
     •    Deterministic and crash-free.
-    •    Run: Product → Test (⌘U), or via scheme.
+    •    Run: Product → Test (⌘U).
 
-UI Tests (XCUITest)
-    •    Views expose stable IDs via A11yID.
-    •    Helper launchArguments += ["-uiTesting", "1"] instructs the app to render full UI for UI tests (but a tiny stub for unit tests, to avoid heavy bootstraps).
-    •    Run the PlanRadarWeatherUITests bundle in the Test action.
+## UI tests (XCUITest)
+    •    Screens expose stable IDs via A11yID (e.g., Cities.Title, Cities.AddPill, row IDs).
+    •    UI tests launch with -uiTesting argument to render the full UI (unit tests render a tiny stub).
 
 ⸻
 
-Design & Accessibility
-    •    Spec-driven city list, details card, history modal.
-    •    Colors: BrandAccent, PrimaryText, SecondaryText with light/dark defined in asset catalog.
-    •    Symbols: SFSymbols (chevrons, plus, xmark), rendered with brand colors.
+## ♿️ Design & Accessibility
+    •    Spec-driven layout for Cities / Details / History.
+    •    Light/Dark assets (e.g., BrandAccent, PrimaryText, SecondaryText).
+    •    SFSymbols (chevrons/plus/xmark) tinted with brand colors.
     •    Accessibility:
-    •    Dynamic type-friendly fonts and contrast-aware colors.
-    •    Explicit accessibilityIdentifier for UI test stability.
+    •    Dynamic Type-friendly fonts and strong contrast.
+    •    Stable accessibilityIdentifier values across the app for robust UI tests.
 
 ⸻
 
-Error Handling
+## 🛡 Error Handling
 
-AppError: LocalizedError collapses network and HTTP semantics into user-friendly messages:
-    •    network(URLError), cancelled
-    •    invalidResponse, emptyBody, invalidContentType
-    •    unauthorized (401), notFound (404), rateLimited(429, Retry-After)
-    •    httpStatus(code:reason:preview:)
-
-HTTP helper extracts Retry-After and a safe body preview to aid diagnostics.
+AppError: LocalizedError provides a single, user-presentable surface:
+    •    Transport: network(URLError), cancelled
+    •    Protocol: invalidResponse, emptyBody, invalidContentType
+    •    HTTP semantics: unauthorized (401), notFound (404), rateLimited (429, Retry-After)
+    •    Fallback: httpStatus(code:reason:preview:) with a safe body preview
 
 ⸻
 
-Troubleshooting
+## 🧰 Troubleshooting
 
 “Multiple NSEntityDescriptions claim …” / malloc crash
-    •    You have both generated AND manual Core Data classes.
-Fix: choose one codegen path:
-    •    Keep generated classes: set entities to Class Definition; delete manual files.
-    •    Keep manual files: set entities to Manual/None.
-    •    Ensure tests do not copy a .momd into their bundle.
-    •    Keep Obj-C/bridging out of the Unit Tests target.
+    •    You have both generated and manual Core Data classes.
+    •    Choose one codegen path (see Core Data model above).
+    •    Ensure tests do not copy a .momd.
+    •    Keep Obj-C / bridging header out of the unit tests target.
 
 Bridging header errors
-    •    Clear or correct the Objective-C Bridging Header path in Build Settings, or remove the Obj-C file from Compile Sources when doing Swift-only networking.
+    •    Clear or fix the Objective-C Bridging Header in Build Settings, or remove the Obj-C files from the tests target.
 
-No background image / asset tinting
-    •    Ensure the asset’s Appearances include light/dark variants if needed.
-    •    For images with color, use .renderingMode(.original).
-
-⸻
-
-Tradeoffs & Future Work
-    •    Networking: kept minimal (no Alamofire) to match assessment scope. Could add caching, request retry/backoff.
-    •    DI: simple “service locator” enum for brevity; could move to protocols + constructors for finer testability.
-    •    Persistence: Core Data is sufficient here; for larger domains consider background contexts, batch updates, and lightweight migrations.
-    •    UI: Only the core screens from the spec; could add pull-to-refresh, empty states, and richer metrics (pressure, visibility).
-    •    Observability: Add OSLog categories and signposts around networking/persistence.
+Assets not showing / tinted
+    •    Provide Light/Dark variants in asset catalog if needed.
+    •    Use .renderingMode(.original) for colored images.
 
 ⸻
 
-Grading Rubric Map
-    •    [2] Architecture & Code Quality & Docs
-MVVM + Use-Cases + Repository, domain isolation, error taxonomy, README + in-code docs.
+## 🔭 Trade-offs & Future Work
+    •    Networking: minimal by design (no Alamofire); could add caching, retry/backoff.
+    •    DI: simple service-locator; could move to protocols + constructors for finer testability.
+    •    Persistence: Core Data suits this scope; larger apps may add background contexts, batches, migrations.
+    •    UI: Future additions—pull-to-refresh, empty states, richer metrics (pressure/visibility).
+    •    Observability: Add OSLog and signposts around networking/persistence.
+
+⸻
+
+## 🧪 Grading Rubric Map
+    •    [2] Architecture / Code Quality / Docs
+MVVM + Use-Cases + Repository, domain isolation, error taxonomy, and clear README/in-code docs.
     •    [2] UI
 Spec-faithful screens, dark/light assets, custom pill controls, semantic colors.
     •    [2] Error Handling
-Transport vs HTTP vs content-type, Retry-After parsing, user-friendly messages.
+Clear messaging; transport vs HTTP; Retry-After parsing; safe body preview.
     •    [2] Interpretation of Spec
-City selector, details card, history modal, accessibility IDs for testing.
+City selector, details card, history modal, testable IDs.
     •    [2] Tests
-Deterministic ViewModel unit tests (pure Swift), stable XCUITests via A11y IDs.
+Deterministic ViewModel unit tests; stable UI tests via A11yID.
 
 ⸻
 
-Security & Secrets
-    •    Keep the API key in Info.plist (or use build settings with a user-configurable xcconfig).
-    •    Never hardcode keys in source files or commit real keys.
+## 🔒 Security & Secrets
+    •    Put the API key in Info.plist (or supply via build settings / xcconfig).
+    •    Never hardcode production secrets in source or VCS.
