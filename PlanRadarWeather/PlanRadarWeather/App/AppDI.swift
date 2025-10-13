@@ -8,18 +8,17 @@
 
 import CoreData
 
-/// Builds real implementations once, so the rest of the app can reuse them.
+@MainActor
 enum AppDI {
-    // Data layer (concrete repo that talks to Obj-C networking + Core Data)
-    static let repo = WeatherRepositoryImpl(
-        networking: WeatherNetworking(),
-        context: PersistenceController.shared.viewContext
-    )
+    private static var ctx: NSManagedObjectContext { PersistenceController.shared.viewContext }
 
-    // Domain use cases (thin orchestrators)
-    static let addOrGetCity    = AddOrGetCity(repo: repo)
-    static let fetchLatest     = FetchLatestWeather(repo: repo)
-    static let getCityHistory  = GetCityHistory(repo: repo)
-    static let listCities      = ListCities(repo: repo)
-    static let deleteCities    = DeleteCities(repo: repo)
+    static var repo: WeatherRepository {
+        WeatherRepositoryImpl(networking: WeatherNetworking(), context: ctx)
+    }
+
+    static var addOrGetCity: AddOrGetCityUseCase { AddOrGetCity(repo: repo) }
+    static var fetchLatest:  FetchLatestWeatherUseCase { FetchLatestWeather(repo: repo) }
+    static var getCityHistory:GetCityHistoryUseCase { GetCityHistory(repo: repo) }
+    static var listCities:   ListCitiesUseCase { ListCities(repo: repo) }
+    static var deleteCities: DeleteCitiesUseCase { DeleteCities(repo: repo) }
 }

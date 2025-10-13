@@ -10,20 +10,18 @@ import Foundation
 
 // MARK: - City (Domain)
 
-/// Domain entity representing a City (framework-agnostic).
-public struct CityEntity: Equatable, Hashable, Sendable {
-    public let id: UUID
-    public let name: String            // normalized (trimmed, single-spaced, capitalized)
-    public let createdAt: Date
+public struct CityEntity: Equatable, Hashable {
+    public var id: UUID
+    public var name: String
+    public var createdAt: Date
 
-    /// Normalizing initializer (throws if name is empty after trimming).
-    public init(id: UUID = UUID(), name rawName: String, createdAt: Date = .init()) {
-        let normalized = CityEntity.normalizeName(rawName)
-        precondition(!normalized.isEmpty, "City name must not be empty")
-        self.id = id
-        self.name = normalized
-        self.createdAt = createdAt
+    public init(id: UUID = UUID(), name: String, createdAt: Date = Date()) {
+        self.id = id; self.name = name; self.createdAt = createdAt
     }
+}
+
+extension CityEntity: CustomStringConvertible {
+    public var description: String { "CityEntity(id: \(id), name: \"\(name)\", createdAt: \(createdAt))" }
 }
 
 public extension CityEntity {
@@ -32,10 +30,12 @@ public extension CityEntity {
 
     /// Normalizes a user-entered city name (trim + collapse spaces + titlecase ASCII).
     static func normalizeName(_ s: String) -> String {
-        let trimmed = s.trimmingCharacters(in: .whitespacesAndNewlines)
-        // collapse consecutive spaces
-        let collapsed = trimmed.replacingOccurrences(of: #"\s+"#, with: " ", options: .regularExpression)
-        // lightweight titlecasing (avoid Locale impact)
+        // Trim standard and non-breaking spaces
+        let customSet = CharacterSet.whitespacesAndNewlines.union(CharacterSet(charactersIn: "\u{00A0}"))
+        let trimmed = s.trimmingCharacters(in: customSet)
+        // Collapse standard and non-breaking whitespace runs to a single space
+        let collapsed = trimmed.replacingOccurrences(of: #"[ \t\n\r\f\u{00A0}]+"#, with: " ", options: .regularExpression)
+        // Lightweight titlecasing (avoid Locale impact)
         return collapsed.capitalized
     }
 }
@@ -113,3 +113,4 @@ public extension WeatherSnapshot {
         iconID: "01d"
     )
 }
+

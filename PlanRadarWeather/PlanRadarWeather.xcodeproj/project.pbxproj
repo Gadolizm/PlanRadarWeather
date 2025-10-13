@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXContainerItemProxy section */
-		8B08EDED2E998E6C00A656DC /* PBXContainerItemProxy */ = {
+		8B08EDF72E998E6C00A656DC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8B08EDD22E998E6A00A656DC /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 8B08EDD92E998E6A00A656DC;
 			remoteInfo = PlanRadarWeather;
 		};
-		8B08EDF72E998E6C00A656DC /* PBXContainerItemProxy */ = {
+		8BB274202E9CFA6B0047133A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8B08EDD22E998E6A00A656DC /* Project object */;
 			proxyType = 1;
@@ -25,12 +25,19 @@
 
 /* Begin PBXFileReference section */
 		8B08EDDA2E998E6A00A656DC /* PlanRadarWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlanRadarWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8B08EDEC2E998E6C00A656DC /* PlanRadarWeatherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlanRadarWeatherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B08EDF62E998E6C00A656DC /* PlanRadarWeatherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlanRadarWeatherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8BB2741C2E9CFA6B0047133A /* PlanRadarWeatherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlanRadarWeatherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		8B08EE0A2E9990BE00A656DC /* Exceptions for "PlanRadarWeather" folder in "PlanRadarWeather" target */ = {
+		8B5AE6572E9D37C200DBB5B3 /* Exceptions for "PlanRadarWeather" folder in "PlanRadarWeatherUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Presentation/Support/A11yID.swift,
+			);
+			target = 8B08EDF52E998E6C00A656DC /* PlanRadarWeatherUITests */;
+		};
+		8BB274172E9CF6580047133A /* Exceptions for "PlanRadarWeather" folder in "PlanRadarWeather" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Config/Info.plist,
@@ -43,14 +50,10 @@
 		8B08EDDC2E998E6A00A656DC /* PlanRadarWeather */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				8B08EE0A2E9990BE00A656DC /* Exceptions for "PlanRadarWeather" folder in "PlanRadarWeather" target */,
+				8BB274172E9CF6580047133A /* Exceptions for "PlanRadarWeather" folder in "PlanRadarWeather" target */,
+				8B5AE6572E9D37C200DBB5B3 /* Exceptions for "PlanRadarWeather" folder in "PlanRadarWeatherUITests" target */,
 			);
 			path = PlanRadarWeather;
-			sourceTree = "<group>";
-		};
-		8B08EDEF2E998E6C00A656DC /* PlanRadarWeatherTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = PlanRadarWeatherTests;
 			sourceTree = "<group>";
 		};
 		8B08EDF92E998E6C00A656DC /* PlanRadarWeatherUITests */ = {
@@ -58,17 +61,15 @@
 			path = PlanRadarWeatherUITests;
 			sourceTree = "<group>";
 		};
+		8B2B66A62E9BBD00007FFACD /* PlanRadarWeatherTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = PlanRadarWeatherTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		8B08EDD72E998E6A00A656DC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8B08EDE92E998E6C00A656DC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -82,6 +83,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8BB274192E9CFA6B0047133A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -89,7 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				8B08EDDC2E998E6A00A656DC /* PlanRadarWeather */,
-				8B08EDEF2E998E6C00A656DC /* PlanRadarWeatherTests */,
+				8B2B66A62E9BBD00007FFACD /* PlanRadarWeatherTests */,
 				8B08EDF92E998E6C00A656DC /* PlanRadarWeatherUITests */,
 				8B08EDDB2E998E6A00A656DC /* Products */,
 			);
@@ -99,8 +107,8 @@
 			isa = PBXGroup;
 			children = (
 				8B08EDDA2E998E6A00A656DC /* PlanRadarWeather.app */,
-				8B08EDEC2E998E6C00A656DC /* PlanRadarWeatherTests.xctest */,
 				8B08EDF62E998E6C00A656DC /* PlanRadarWeatherUITests.xctest */,
+				8BB2741C2E9CFA6B0047133A /* PlanRadarWeatherTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -130,29 +138,6 @@
 			productReference = 8B08EDDA2E998E6A00A656DC /* PlanRadarWeather.app */;
 			productType = "com.apple.product-type.application";
 		};
-		8B08EDEB2E998E6C00A656DC /* PlanRadarWeatherTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8B08EE032E998E6C00A656DC /* Build configuration list for PBXNativeTarget "PlanRadarWeatherTests" */;
-			buildPhases = (
-				8B08EDE82E998E6C00A656DC /* Sources */,
-				8B08EDE92E998E6C00A656DC /* Frameworks */,
-				8B08EDEA2E998E6C00A656DC /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8B08EDEE2E998E6C00A656DC /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				8B08EDEF2E998E6C00A656DC /* PlanRadarWeatherTests */,
-			);
-			name = PlanRadarWeatherTests;
-			packageProductDependencies = (
-			);
-			productName = PlanRadarWeatherTests;
-			productReference = 8B08EDEC2E998E6C00A656DC /* PlanRadarWeatherTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		8B08EDF52E998E6C00A656DC /* PlanRadarWeatherUITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8B08EE062E998E6C00A656DC /* Build configuration list for PBXNativeTarget "PlanRadarWeatherUITests" */;
@@ -176,6 +161,29 @@
 			productReference = 8B08EDF62E998E6C00A656DC /* PlanRadarWeatherUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		8BB2741B2E9CFA6B0047133A /* PlanRadarWeatherTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8BB274222E9CFA6B0047133A /* Build configuration list for PBXNativeTarget "PlanRadarWeatherTests" */;
+			buildPhases = (
+				8BB274182E9CFA6B0047133A /* Sources */,
+				8BB274192E9CFA6B0047133A /* Frameworks */,
+				8BB2741A2E9CFA6B0047133A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8BB274212E9CFA6B0047133A /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				8B2B66A62E9BBD00007FFACD /* PlanRadarWeatherTests */,
+			);
+			name = PlanRadarWeatherTests;
+			packageProductDependencies = (
+			);
+			productName = PlanRadarWeatherTests;
+			productReference = 8BB2741C2E9CFA6B0047133A /* PlanRadarWeatherTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -190,12 +198,13 @@
 						CreatedOnToolsVersion = 26.0;
 						LastSwiftMigration = 2600;
 					};
-					8B08EDEB2E998E6C00A656DC = {
+					8B08EDF52E998E6C00A656DC = {
 						CreatedOnToolsVersion = 26.0;
 						TestTargetID = 8B08EDD92E998E6A00A656DC;
 					};
-					8B08EDF52E998E6C00A656DC = {
+					8BB2741B2E9CFA6B0047133A = {
 						CreatedOnToolsVersion = 26.0;
+						LastSwiftMigration = 2600;
 						TestTargetID = 8B08EDD92E998E6A00A656DC;
 					};
 				};
@@ -215,8 +224,8 @@
 			projectRoot = "";
 			targets = (
 				8B08EDD92E998E6A00A656DC /* PlanRadarWeather */,
-				8B08EDEB2E998E6C00A656DC /* PlanRadarWeatherTests */,
 				8B08EDF52E998E6C00A656DC /* PlanRadarWeatherUITests */,
+				8BB2741B2E9CFA6B0047133A /* PlanRadarWeatherTests */,
 			);
 		};
 /* End PBXProject section */
@@ -229,14 +238,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8B08EDEA2E998E6C00A656DC /* Resources */ = {
+		8B08EDF42E998E6C00A656DC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8B08EDF42E998E6C00A656DC /* Resources */ = {
+		8BB2741A2E9CFA6B0047133A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -253,14 +262,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8B08EDE82E998E6C00A656DC /* Sources */ = {
+		8B08EDF22E998E6C00A656DC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8B08EDF22E998E6C00A656DC /* Sources */ = {
+		8BB274182E9CFA6B0047133A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -270,15 +279,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		8B08EDEE2E998E6C00A656DC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8B08EDD92E998E6A00A656DC /* PlanRadarWeather */;
-			targetProxy = 8B08EDED2E998E6C00A656DC /* PBXContainerItemProxy */;
-		};
 		8B08EDF82E998E6C00A656DC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8B08EDD92E998E6A00A656DC /* PlanRadarWeather */;
 			targetProxy = 8B08EDF72E998E6C00A656DC /* PBXContainerItemProxy */;
+		};
+		8BB274212E9CFA6B0047133A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8B08EDD92E998E6A00A656DC /* PlanRadarWeather */;
+			targetProxy = 8BB274202E9CFA6B0047133A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -412,6 +421,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = Q9XVX6TNW7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -451,8 +461,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = Q9XVX6TNW7;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_TESTABILITY = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "$(PROJECT_DIR)/PlanRadarWeather/Config/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -481,50 +493,6 @@
 			};
 			name = Release;
 		};
-		8B08EE042E998E6C00A656DC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Q9XVX6TNW7;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Gado.PlanRadarWeatherTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PlanRadarWeather.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PlanRadarWeather";
-			};
-			name = Debug;
-		};
-		8B08EE052E998E6C00A656DC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Q9XVX6TNW7;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Gado.PlanRadarWeatherTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PlanRadarWeather.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PlanRadarWeather";
-			};
-			name = Release;
-		};
 		8B08EE072E998E6C00A656DC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -535,6 +503,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Gado.PlanRadarWeatherUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -555,6 +524,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Gado.PlanRadarWeatherUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -562,6 +532,53 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = PlanRadarWeather;
+			};
+			name = Release;
+		};
+		8BB274232E9CFA6B0047133A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q9XVX6TNW7;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Gado.PlanRadarWeatherTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PlanRadarWeather.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PlanRadarWeather";
+			};
+			name = Debug;
+		};
+		8BB274242E9CFA6B0047133A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q9XVX6TNW7;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Gado.PlanRadarWeatherTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PlanRadarWeather.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PlanRadarWeather";
 			};
 			name = Release;
 		};
@@ -586,20 +603,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8B08EE032E998E6C00A656DC /* Build configuration list for PBXNativeTarget "PlanRadarWeatherTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8B08EE042E998E6C00A656DC /* Debug */,
-				8B08EE052E998E6C00A656DC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		8B08EE062E998E6C00A656DC /* Build configuration list for PBXNativeTarget "PlanRadarWeatherUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8B08EE072E998E6C00A656DC /* Debug */,
 				8B08EE082E998E6C00A656DC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8BB274222E9CFA6B0047133A /* Build configuration list for PBXNativeTarget "PlanRadarWeatherTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8BB274232E9CFA6B0047133A /* Debug */,
+				8BB274242E9CFA6B0047133A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

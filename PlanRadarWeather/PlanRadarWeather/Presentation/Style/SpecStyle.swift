@@ -63,39 +63,6 @@ struct WavesBackground: View {
     }
     
 }
-    
-#if DEBUG
-    // Simple overlay that tells you whether the "Background" image is found.
-    private struct WavesBackgroundPreview: View {
-        var body: some View {
-            ZStack {
-                WavesBackground(mode: .fill, fixedHeight: 223)
-                    .frame(maxWidth: .infinity)
-                VStack {
-                    Spacer()
-                    Text(UIImage(named: "Background") != nil ? "Background: FOUND" : "Background: MISSING")
-                        .font(.footnote.weight(.semibold))
-                        .padding(.horizontal, 12).padding(.vertical, 6)
-                        .background(.ultraThinMaterial, in: Capsule())
-                        .padding(.bottom, 24)
-                }
-            }
-        }
-    }
-    
-    #Preview("Waves • Light") {
-        WavesBackgroundPreview()
-            .preferredColorScheme(.light)
-    }
-    
-    #Preview("Waves • Dark") {
-        WavesBackgroundPreview()
-            .preferredColorScheme(.dark)
-    }
-
-
-
-#endif
 
 struct BigRoundButton: View {
     let systemName: String

@@ -9,28 +9,24 @@ import Foundation
 import CoreData
 
 extension WeatherRepositoryImpl {
+
+    private func makeCity() -> City {
+        NSEntityDescription.insertNewObject(forEntityName: "City", into: context) as! City
+    }
+
+    private func makeWeatherInfo() -> WeatherInfo {
+        NSEntityDescription.insertNewObject(forEntityName: "WeatherInfo", into: context) as! WeatherInfo
+    }
+    
     public func fetchAndStoreLatest(for city: CityEntity) async throws -> WeatherSnapshot {
-        // 1) Remote fetch
         let data = try await networking.fetchRaw(city: city.name)
-
-        // 2) Decode API model
-        let api: OWResponse
-        do {
-            api = try JSONDecoder().decode(OWResponse.self, from: data)
-        } catch {
-            // 200 but structure unexpected → surface a readable error
-            throw AppError.httpStatus(code: 200, reason: "Decoding failed",
-                                      bodyPreview: String(describing: error))
-        }
-
-        // 3) Map to Domain snapshot
+        let api = try JSONDecoder().decode(OWResponse.self, from: data)
         let snap = api.toDomainSnapshot()
 
-        // 4) Persist
         var persisted: WeatherSnapshot!
         try await context.perform {
             let cityMO = try self.fetchOrCreateCityMO(byName: city.name)
-            let w = WeatherInfo(context: self.context)
+            let w = self.makeWeatherInfo()
             w.id = UUID()
             w.requestedAt = Date()
             w.summary = snap.summary

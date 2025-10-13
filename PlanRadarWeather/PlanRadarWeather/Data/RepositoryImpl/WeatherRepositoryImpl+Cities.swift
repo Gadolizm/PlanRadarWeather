@@ -9,19 +9,25 @@ import Foundation
 import CoreData
 
 extension WeatherRepositoryImpl {
-    public func ensureCity(named: String) throws -> CityEntity {
+
+    private func makeCity() -> City {
+        NSEntityDescription.insertNewObject(forEntityName: "City", into: context) as! City
+    }
+    
+    public func ensureCity(named raw: String) throws -> CityEntity {
+        let name = CityEntity.normalizeName(raw)
         var result: CityEntity!
         try context.performAndWait {
             let req: NSFetchRequest<City> = City.fetchRequest()
             req.fetchLimit = 1
-            req.predicate = NSPredicate(format: "name =[c] %@", named)
+            req.predicate = NSPredicate(format: "name ==[c] %@", name)
 
             if let existing = try context.fetch(req).first {
                 result = existing.toDomain()
             } else {
-                let c = City(context: context)
+                let c = makeCity()
                 c.id = UUID()
-                c.name = named
+                c.name = name
                 c.createdAt = Date()
                 try context.save()
                 result = c.toDomain()
@@ -54,10 +60,10 @@ extension WeatherRepositoryImpl {
     func fetchOrCreateCityMO(byName name: String) throws -> City {
         let req: NSFetchRequest<City> = City.fetchRequest()
         req.fetchLimit = 1
-        req.predicate = NSPredicate(format: "name =[c] %@", name)
+        req.predicate = NSPredicate(format: "name ==[c] %@", name)
         if let existing = try context.fetch(req).first { return existing }
 
-        let c = City(context: context)
+        let c = makeCity()
         c.id = UUID()
         c.name = name
         c.createdAt = Date()
