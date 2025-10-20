@@ -16,7 +16,6 @@ struct PlanRadarWeatherApp: App {
     var body: some Scene {
         WindowGroup {
             if Runtime.isUnitTests {
-                Text("Running Unit Tests") // tiny stub view for unit tests
             } else {
                 CitiesView()
                     .environment(\.managedObjectContext, persistenceController.container.viewContext)

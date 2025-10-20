@@ -39,29 +39,32 @@ extension View {
     func specTitle() -> some View { modifier(SpecTitle()) }
 }
 
-import SwiftUI
 
-/// Background that draws ONLY the "Background" asset.
-/// - Fill whole screen by default (ignores safe areas).
-/// - Or pass a fixed height to use it as a header.
-/// - Choose .fill (default) or .fit.
 struct WavesBackground: View {
-    enum Mode { case fill, fit }
-    
-    var imageName: String = "Background"
-    var mode: Mode = .fill
-    var fixedHeight: CGFloat? = nil          // e.g. 220 for a header
-    var opacity: Double = 1.0
-    
+    var imageName: String = "Background"   // one asset name; add Dark variant in the same set
+
     var body: some View {
-        Group {
-            if let ui = UIImage(named: imageName) {
-                Image(uiImage: ui)
-                    .resizable()
+        GeometryReader { geo in
+            ZStack(alignment: .bottom) {
+                // spec backdrop color (use your color asset if you already added it)
+                Color("ScreenBG")
+
+                if let ui = UIImage(named: imageName) {
+                    Image(uiImage: ui)
+                        .resizable()
+                        .renderingMode(.original)   // prevent tinting
+                        .interpolation(.high)
+                        .scaledToFit()              // keep wave shape
+                        .frame(width: geo.size.width)
+                        .clipped()
+                        .transition(.opacity)
+                }
             }
+            .ignoresSafeArea()
         }
+        .allowsHitTesting(false)
+        .accessibilityHidden(true)
     }
-    
 }
 
 struct BigRoundButton: View {

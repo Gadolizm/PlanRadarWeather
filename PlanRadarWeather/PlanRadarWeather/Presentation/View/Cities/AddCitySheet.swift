@@ -15,7 +15,7 @@ struct AddCitySheet: View {
 
     var body: some View {
         ZStack {
-            WavesBackground() // optional; remove if you don’t have it
+            WavesBackground() 
             VStack(spacing: 16) {
                 Text("Enter city, postcode or airport location")
                     .font(.headline).multilineTextAlignment(.center)

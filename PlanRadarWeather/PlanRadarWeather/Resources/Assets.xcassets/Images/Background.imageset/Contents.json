@@ -2,7 +2,7 @@
   "images" : [
     {
       "filename" : "Background.png",
-      "idiom" : "iphone",
+      "idiom" : "universal",
       "scale" : "1x"
     },
     {
@@ -13,12 +13,12 @@
         }
       ],
       "filename" : "Background 1.png",
-      "idiom" : "iphone",
+      "idiom" : "universal",
       "scale" : "1x"
     },
     {
       "filename" : "Background@2x.png",
-      "idiom" : "iphone",
+      "idiom" : "universal",
       "scale" : "2x"
     },
     {
@@ -29,12 +29,12 @@
         }
       ],
       "filename" : "Background@2x 1.png",
-      "idiom" : "iphone",
+      "idiom" : "universal",
       "scale" : "2x"
     },
     {
       "filename" : "Background@3x.png",
-      "idiom" : "iphone",
+      "idiom" : "universal",
       "scale" : "3x"
     },
     {
@@ -45,7 +45,7 @@
         }
       ],
       "filename" : "Background@3x 1.png",
-      "idiom" : "iphone",
+      "idiom" : "universal",
       "scale" : "3x"
     }
   ],

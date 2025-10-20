@@ -20,28 +20,62 @@ struct CityDetailView: View {
 
     var body: some View {
         ZStack(alignment: .topLeading) {
-
-
-
+            WavesBackground()
             // ── Content card + footer ────────────────────────────────────────────
-            VStack(spacing: 20) {
-                Spacer().frame(height: 96)
+            VStack(spacing: 16) {
+                Spacer().frame(height: 88)
 
-                RoundedRectangle(cornerRadius: 36, style: .continuous)
-                    .fill(cardFill)
-                    .shadow(color: .black.opacity(scheme == .dark ? 0.55 : 0.18),
-                            radius: scheme == .dark ? 30 : 24, x: 0, y: 12)
-                    .overlay(cardContent.padding(28))
-                    .frame(maxWidth: .infinity, minHeight: 360)
-                    .padding(.horizontal, 24)
+                GeometryReader { geo in
+                    // Target a narrower card; cap for big phones so it never spans edge-to-edge
+                    let cardWidth   = min(geo.size.width * 0.82, 340)
+                    let ghostWidth  = cardWidth + 14
+                    let ellipseW    = cardWidth * 0.78
 
-                Text("WEATHER INFORMATION FOR \(city.name.uppercased()) RECEIVED ON\n\(formatted(snapshot.requestedAt))")
-                    .font(.footnote.weight(.semibold))
-                    .multilineTextAlignment(.center)
-                    .foregroundStyle(.secondary)
-                    .padding(.top, 4)
+                    ZStack(alignment: .bottom) {
+
+                        // soft ellipse under the card
+                        Ellipse()
+                            .fill(Color.black.opacity(scheme == .dark ? 0.34 : 0.12))
+                            .frame(width: ellipseW, height: 38)
+                            .blur(radius: 16)
+                            .offset(y: 20)
+
+                        // fuzzy back panel
+                        RoundedRectangle(cornerRadius: 40, style: .continuous)
+                            .fill(cardFill)
+                            .frame(width: ghostWidth)
+                            .offset(y: 10)
+                            .shadow(color: .black.opacity(scheme == .dark ? 0.38 : 0.16),
+                                    radius: 28, x: 0, y: 24)
+                            .blur(radius: 8)
+                            .opacity(0.45)
+
+                        // main card (smaller)
+                        RoundedRectangle(cornerRadius: 36, style: .continuous)
+                            .fill(cardFill)
+                            .frame(width: cardWidth)
+                            .overlay(cardContent.padding(24))
+                            .shadow(color: .black.opacity(scheme == .dark ? 0.55 : 0.18),
+                                    radius: scheme == .dark ? 28 : 22, x: 0, y: 10)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                }
+                .frame(height: 450) 
 
                 Spacer()
+                Text("WEATHER INFORMATION FOR \(city.name.uppercased()) RECEIVED ON")
+                    .font(.footnote.weight(.semibold))
+                    .kerning(0.3)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.top, 2)
+
+                Text(formatted(snapshot.requestedAt))
+                    .font(.footnote.weight(.semibold))
+                    .kerning(0.3)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+
             }
         }
         // Top centered title

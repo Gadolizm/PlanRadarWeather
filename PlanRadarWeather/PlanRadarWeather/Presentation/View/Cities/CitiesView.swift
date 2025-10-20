@@ -23,6 +23,9 @@ struct CitiesView: View {
     var body: some View {
         NavigationStack(path: $path) {
             ZStack(alignment: .topTrailing) {
+                
+                WavesBackground() // optional; remove if you don’t have it
+
 
                 ScrollView {
                     VStack(spacing: 0) {
