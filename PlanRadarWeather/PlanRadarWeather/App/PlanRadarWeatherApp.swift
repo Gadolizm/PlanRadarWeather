@@ -15,22 +15,8 @@ struct PlanRadarWeatherApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if Runtime.isUnitTests {
-            } else {
                 CitiesView()
                     .environment(\.managedObjectContext, persistenceController.container.viewContext)
-            }
         }
-    }
-}
-
-// Runtime.swift (app target)
-enum Runtime {
-    static var isUITests: Bool {
-        ProcessInfo.processInfo.arguments.contains("-uiTesting")
-    }
-    static var isUnitTests: Bool {
-        // Unit tests set this env var; UI tests also do, so exclude when -uiTesting is present
-        ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil && !isUITests
     }
 }
